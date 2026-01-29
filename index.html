@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth; scroll-padding-top: 100px;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Johanzen Hayag | Professional Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Lora:wght@600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --text: #0f172a;
+            --muted: #64748b;
+            --primary: #004a99;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        [data-theme="dark"] {
+            --bg: #020617;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --primary: #38bdf8;
+            --card-bg: #0f172a;
+            --border: #1e293b;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.25s ease; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* --- FIXED NAVIGATION BAR (Visible on All Devices) --- */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+            background: var(--nav-bg); backdrop-filter: blur(12px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; border-bottom: 1px solid var(--border);
+            padding: 0 15px;
+        }
+        .nav-container { 
+            width: 100%; 
+            max-width: 1000px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        .nav-links { 
+            display: flex; 
+            list-style: none; 
+            gap: clamp(10px, 3vw, 25px); /* Adjusts gap based on screen size */
+        }
+        .nav-links a { 
+            text-decoration: none; 
+            color: var(--text); 
+            font-weight: 700; 
+            font-size: clamp(0.65rem, 2vw, 0.75rem); /* Text shrinks on mobile instead of disappearing */
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+        .nav-links a:hover { color: var(--primary); }
+        
+        #theme-toggle {
+            background: none; border: 1px solid var(--border); color: var(--text);
+            width: 35px; height: 35px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            margin-left: 10px;
+        }
+
+        /* --- HERO & PROFILE --- */
+        .hero { padding: 140px 10% 40px 10%; display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 900px; margin: 0 auto; }
+        .profile-pic {
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+            border: 1px solid var(--border); padding: 6px; margin-bottom: 1.5rem;
+        }
+
+        .subtitle-pill {
+            display: inline-block; background: var(--card-bg); border: 1px solid var(--border);
+            color: var(--muted); padding: 4px 16px; border-radius: 6px;
+            font-weight: 600; font-size: 0.85rem; letter-spacing: 0.5px; margin-bottom: 2.5rem;
+        }
+
+        .intro-box { text-align: left; width: 100%; margin-bottom: 2rem; border-left: 3px solid var(--primary); padding-left: 20px; }
+        
+        .about-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 1.5rem; border-radius: 12px; width: 100%;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;
+            text-align: left; margin-bottom: 1.5rem;
+        }
+        .about-item span { display: block; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; font-weight: 700; }
+        .about-item p { font-weight: 600; font-size: 0.9rem; }
+
+        .social-links { display: flex; gap: 1.5rem; margin-top: 10px; }
+        .social-links a { color: var(--muted); font-size: 1.3rem; }
+        .social-links a:hover { color: var(--primary); transform: translateY(-3px); }
+
+        /* --- CONTAINER & BOXES --- */
+        .container { max-width: 900px; margin: 0 auto; padding: 4rem 5%; }
+        h2 { font-family: 'Lora', serif; margin-bottom: 1.5rem; color: var(--text); font-size: 1.4rem; }
+
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+        .tech-badge { 
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 8px 14px; border-radius: 6px; font-size: 0.8rem; font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .tech-badge i { color: var(--primary); }
+
+        .box-item {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .box-item:hover { border-color: var(--primary); transform: translateX(5px); }
+        .box-tag { font-weight: 700; color: var(--primary); font-size: 0.7rem; background: rgba(0,74,153,0.05); padding: 4px 10px; border-radius: 4px; }
+
+        @media (max-width: 650px) {
+            .box-item { flex-direction: column; text-align: center; gap: 10px; }
+            /* Navigation now stays visible but compact on mobile */
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <nav>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#tech">Tech</a></li>
+                <li><a href="#certificates">Certificates</a></li>
+                <li><a href="#projects">Projects</a></li>
+            </ul>
+            <button id="theme-toggle" onclick="toggleTheme()">
+                <i class="fas fa-adjust"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero" id="about">
+        <img src="profile.jpg" class="profile-pic" onerror="this.src='https://via.placeholder.com/160/e2e8f0/64748b?text=JH'">
+        <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Johanzen Hayag</h1>
+        <div class="subtitle-pill">IT Student & Aspiring Web Developer</div>
+        
+        <div class="intro-box">
+            <h4 style="font-size: 0.7rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 5px;">Professional Profile</h4>
+            <p style="color: var(--muted); font-size: 0.95rem;">2nd Year IT Student dedicated to mastering modern web development and hardware maintenance. Committed to solving complex problems with efficient, clean code.</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-item"><span>Field</span><p>IT</p></div>
+            <div class="about-item"><span>Birthday</span><p>July 28, 2006</p></div>
+            <div class="about-item"><span>Location</span><p>Rizal, ZDN</p></div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/1AxK3td9tf/"><i class="fab fa-facebook"></i></a>
+            <a href="https://github.com/johanzenh-hub"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/zenhayag?igsh=MTdiazQxNXRhemVkMQ=="><i class="fab fa-instagram"></i></a>
+            <a href="mailto:johanzen@example.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section id="tech" style="margin-bottom: 4rem;">
+            <h2>Tech Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-badge"><i class="fab fa-html5"></i> HTML5</div>
+                <div class="tech-badge"><i class="fab fa-css3-alt"></i> CSS3</div>
+                <div class="tech-badge"><i class="fab fa-js"></i> JavaScript</div>
+                <div class="tech-badge"><i class="fas fa-microchip"></i> PC Assembly</div>
+                <div class="tech-badge"><i class="fas fa-tools"></i> Troubleshooting</div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Educational Attainment</h2>
+            <div class="box-item">
+                <div>
+                    <h3 style="font-size: 1rem;">BS in Information Technology</h3>
+                    <p style="color: var(--muted); font-size: 0.85rem;">Colegio de San Francisco Javier</p>
+                </div>
+                <span class="box-tag">2024 — PRESENT</span>
+            </div>
+            <div class="box-item">
+                <div>
+                    <h3 style="font-size: 1rem;">Senior High School (TVL-ICT)</h3>
+                    <p style="color: var(--muted); font-size: 0.85rem;">Colegio de San Francisco Javier</p>
+                </div>
+                <span class="box-tag">2022 — 2024</span>
+            </div>
+            <div class="box-item">
+                <div>
+                    <h3 style="font-size: 1rem;">Elementary Education</h3>
+                    <p style="color: var(--muted); font-size: 0.85rem;">SDA Elementary School</p>
+                </div>
+                <span class="box-tag">2012 — 2018</span>
+            </div>
+        </section>
+
+        <section id="certificates" style="margin-top: 4rem;">
+            <h2>Certifications</h2>
+            <div class="box-item">
+                <div>
+                    <h3 style="font-size: 1rem;">Academic Excellence Awardee</h3>
+                    <p style="color: var(--muted); font-size: 0.85rem;">TVL-ICT Specialization</p>
+                </div>
+                <span class="box-tag">Verified</span>
+            </div>
+        </section>
+
+        <section id="projects" style="margin-top: 4rem;">
+            <h2>Key Projects</h2>
+            <div class="box-item" style="border-style: dashed; justify-content: center; padding: 2rem;">
+                <div style="text-align: center;">
+                    <i class="fas fa-laptop-code" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 10px;"></i>
+                    <h3 style="font-size: 1rem;">Scientific Calculator</h3>
+                    <p style="font-size: 0.85rem; color: var(--muted);">Advanced web-based calculator with mathematical logic.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 4rem 0; color: var(--muted); font-size: 0.75rem; border-top: 1px solid var(--border);">
+        <p>&copy; 2026 Johanzen Hayag &bull; Rizal, Zamboanga del Norte</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const current = body.getAttribute('data-theme');
+            body.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        }
+    </script>
+</body>
+</html>
